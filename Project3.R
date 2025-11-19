@@ -152,4 +152,30 @@ Q2stats %>%
   kbl() %>%
   kable_styling()
 
+#Question 3
+  #Does the time spent on the bike have any correlation with the time the bike started it’s ride?
+CheckoutTime <- metrobikeF$`Checkout Time`
+CheckoutTimePeriod <- hms(CheckoutTime)
+numeric_hours <- hour(CheckoutTimePeriod) + minute(CheckoutTimePeriod) / 60 + second(CheckoutTimePeriod) / 3600
+ggplot(metrobikeF, aes(x = `Trip Duration Minutes`, y = `Checkout Time`)) + geom_point() + coord_cartesian(xlim = c(0, 1000)) + labs(title = "Correlation of Checkout Time vs Trip Duration", x = "Trip Duration") + theme_classic() + geom_smooth(method = "lm", color = "red")
+ggplot(metrobikeF, aes(x = `Trip Duration Minutes`, y = `Checkout Time`)) + geom_point() + coord_cartesian(xlim = c(0, 500)) + labs(title = "Correlation of Checkout Time vs Trip Duration", x = "Trip Duration") + theme_classic() + geom_smooth(method = "lm", color = "red")
+ggplot(metrobikeF, aes(x = `Trip Duration Minutes`, y = `Checkout Time`)) + geom_point() + coord_cartesian(xlim = c(0, 250)) +  labs(title = "Correlation of Checkout Time vs Trip Duration", x = "Trip Duration") + theme_classic() + geom_smooth(method = "lm", color = "red")
+Correlation <- cor(x= metrobikeF$`Trip Duration Minutes`, y= numeric_hours)
+print(Correlation)
+
+#Question 4
+  #Does the season affect the number of trips made?
+ggplot(metrobikeF, aes(x = Season)) + geom_bar() + labs(title = "Amount of Trips Made in Each Season") + theme_classic()
+Winter <- metrobikeF %>% filter(Season == "Winter") %>% count()
+FreqWinter <- (Winter / 20000) * 100
+print(FreqWinter)
+Spring <- metrobikeF %>% filter(Season == "Spring") %>% count()
+FreqSpring <- (Spring / 20000) * 100
+print(FreqSpring)
+Summer <- metrobikeF %>% filter(Season == "Summer") %>% count()
+FreqSummer <- (Summer / 20000) * 100
+print(FreqSummer)
+Fall <- metrobikeF %>% filter(Season == "Fall") %>% count()
+FreqFall <- (Fall / 20000) * 100
+print(FreqFall)
 
