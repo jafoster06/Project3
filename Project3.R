@@ -153,3 +153,21 @@ Q2stats %>%
   kable_styling()
 
 
+
+
+
+
+
+#Question 4
+  #What time has the greatest amount of checkouts and returns at PCL?
+checkoutPCL <- filter(metrobikeF, `Checkout Kiosk` == "21st/Speedway @ PCL" | `Checkout Kiosk` == "21st & Speedway @PCL")
+returnPCL <- filter(metrobikeF, `Return Kiosk` == "21st/Speedway @ PCL" | `Return Kiosk` == "21st & Speedway @PCL")
+ggplot(checkoutPCL, aes(x = `Checkout Time`)) + geom_histogram() + theme_classic()
+ggplot(returnPCL, aes(x = `Checkout Time`)) + geom_histogram() + theme_classic()
+CheckoutTimePCl <- checkoutPCL$`Checkout Time`
+CheckoutTimePeriodPCl <- hms(CheckoutTimePCl)
+numeric_hoursCheckoutPCL <- hour(CheckoutTimePeriodPCl) + minute(CheckoutTimePeriodPCl) / 60 + second(CheckoutTimePeriodPCl) / 3600
+mean(numeric_hoursCheckoutPCL)
+
+
+
